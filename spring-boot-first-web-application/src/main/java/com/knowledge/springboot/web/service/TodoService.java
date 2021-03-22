@@ -30,9 +30,9 @@ public class TodoService
         return filteredTodos;
     }
 
-    public void addTodo(String name, String desc, Date targetDate,
+    public void addTodo(String name, String description, Date targetDate,
                         boolean isDone) {
-        todos.add(new Todo(++todoCount, name, desc, targetDate, isDone));
+        todos.add(new Todo(++todoCount, name, description, targetDate, isDone));
     }
 
     public void deleteTodo(int id) {

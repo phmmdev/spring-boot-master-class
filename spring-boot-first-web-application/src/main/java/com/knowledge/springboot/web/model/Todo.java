@@ -6,15 +6,15 @@ public class Todo
 {
     private int id;
     private String user;
-    private String desc;
+    private String description;
     private Date targetDate;
     private boolean isDone;
 
-    public Todo(int id, String user, String desc, Date targetDate, boolean isDone)
+    public Todo(int id, String user, String description, Date targetDate, boolean isDone)
     {
         this.id = id;
         this.user = user;
-        this.desc = desc;
+        this.description = description;
         this.targetDate = targetDate;
         this.isDone = isDone;
     }
@@ -29,9 +29,9 @@ public class Todo
         return user;
     }
 
-    public String getDesc()
+    public String getdescription()
     {
-        return desc;
+        return description;
     }
 
     public Date getTargetDate()
@@ -50,7 +50,7 @@ public class Todo
         return "Todo{" +
                 "id=" + id +
                 ", user='" + user + '\'' +
-                ", desc='" + desc + '\'' +
+                ", description='" + description + '\'' +
                 ", targetDate=" + targetDate +
                 ", isDone=" + isDone +
                 '}';

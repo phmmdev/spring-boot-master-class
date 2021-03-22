@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @Controller
 @SessionAttributes("name")
@@ -26,5 +28,19 @@ public class TodoController
         ArrayList<Todo> todos = (ArrayList<Todo>) todoService.retrieveTodos(name);
         model.put("todos", todos);
         return "list-todos";
+    }
+
+    @RequestMapping(value = "/add-todo", method = RequestMethod.GET)
+    public String showAddTodos(ModelMap model)
+    {
+        return "todos";
+    }
+
+    @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
+    public String addTodos(ModelMap model, @RequestParam String description)
+    {
+        String name  =  (String) model.get("name");
+        todoService.addTodo(name, description, new Date(), false);
+        return "redirect:/list-todos";
     }
 }
