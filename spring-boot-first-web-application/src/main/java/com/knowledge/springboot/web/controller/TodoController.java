@@ -5,11 +5,11 @@ import com.knowledge.springboot.web.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,15 +33,17 @@ public class TodoController
     @RequestMapping(value = "/add-todo", method = RequestMethod.GET)
     public String showAddTodos(ModelMap model)
     {
-        model.addAttribute("todo", new Todo(0,"", "", new Date(), false));
-        return "todos";
+        model.addAttribute("todo", new Todo(0,"", "Default Description", new Date(), false));
+        return "todo";
     }
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
-    public String addTodos(ModelMap model, Todo todo)
+    public String addTodos(@ModelAttribute("todo") Todo todo, BindingResult result, ModelMap modelMap)
     {
-        String name  =  (String) model.get("name");
-        todoService.addTodo((String) model.get("name"), (String) todo.getdescription(), new Date(), false);
+        if(result.hasErrors())
+            return "todo";
+
+        todoService.addTodo((String) "", (String) todo.getDescription(), new Date(), false);
         return "redirect:/list-todos";
     }
 
