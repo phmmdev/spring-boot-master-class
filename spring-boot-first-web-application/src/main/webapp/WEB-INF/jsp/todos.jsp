@@ -1,27 +1,29 @@
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 
 <head>
 <title>First Web Application</title>
-<link href="webjars/bootstrap/5.0.0-beta2/css/bootstrap.min.css"
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
 
 </head>
 
 <body>
 	<div class="container">
-		<form method="post">
+		<form:form method="post" commandName="todo">
 			<fieldset class="form-group">
-				<label>Description</label>
-				<input name="description" type="text"
+				<form:label path="desc">Description</form:label>
+				<form:input path="desc" type="text"
 					class="form-control" required="required"/>
+				<form:errors path="desc" cssClass="text-warning"/>
 			</fieldset>
 
 			<button type="submit" class="btn btn-success">Add</button>
-		</form>
+		</form:form>
 	</div>
 
-	<script src="webjars/jquery/3.6.0/jquery.min.js"></script>
-    <script src="webjars/bootstrap/5.0.0-beta2/js/bootstrap.min.js"></script>
+	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 </body>
 
