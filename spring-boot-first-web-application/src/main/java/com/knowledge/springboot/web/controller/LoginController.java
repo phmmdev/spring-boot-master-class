@@ -14,23 +14,10 @@ public class LoginController
     @Autowired
     LoginService loginService;
 
-    @RequestMapping(value ="/login", method = RequestMethod.GET)
-    public String showLogin()
+    @RequestMapping(value ="/", method = RequestMethod.GET)
+    public String showWelcome(ModelMap modelMap)
     {
-        return "login";
-    }
-
-    @RequestMapping(value ="/login", method = RequestMethod.POST)
-    public String showWelcome(@RequestParam String name, @RequestParam String password, ModelMap modelMap)
-    {
-        boolean isValidUser = loginService.validateUser(name, password);
-        if (!isValidUser)
-        {
-            modelMap.put("errorMessage", "Invalid Credencials");
-            return "login";
-        }
-
-        modelMap.put("name", name);
+        modelMap.put("name", "demo");
         return "welcome";
     }
 }

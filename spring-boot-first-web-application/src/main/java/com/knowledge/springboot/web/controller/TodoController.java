@@ -35,7 +35,7 @@ public class TodoController
     @RequestMapping(value = "/list-todos", method = RequestMethod.GET)
     public String showTodos(ModelMap model)
     {
-        String name  =  (String) model.get("name");
+        String name  =  getLoggedInUserName(model);
         ArrayList<Todo> todos = (ArrayList<Todo>) todoService.retrieveTodos(name);
         model.put("todos", todos);
         return "list-todos";
@@ -53,7 +53,7 @@ public class TodoController
     {
         try
         {
-            String name = (String) model.get("name");
+            String name = getLoggedInUserName(model);
             Todo todo = todoService.getTodo(name, id);
             model.addAttribute("todo", todo);
             return "todo";
@@ -62,6 +62,11 @@ public class TodoController
             // TODO shows message saying that id provided doesn't match with any TODO
         }
         return "todo";
+    }
+
+    private String getLoggedInUserName(ModelMap model)
+    {
+        return (String) model.get("name");
     }
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
@@ -81,7 +86,7 @@ public class TodoController
             return "todo";
         }
 
-        todo.setUser((String) model.get("name"));
+        todo.setUser((String) getLoggedInUserName(model));
 
         todoService.updateTodo(todo);
 
