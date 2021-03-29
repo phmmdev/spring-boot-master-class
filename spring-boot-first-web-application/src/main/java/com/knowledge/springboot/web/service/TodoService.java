@@ -1,5 +1,6 @@
 package com.knowledge.springboot.web.service;
 
+import com.knowledge.springboot.web.exceptions.TodoNotFoundException;
 import com.knowledge.springboot.web.model.Todo;
 import org.springframework.stereotype.Component;
 
@@ -43,5 +44,23 @@ public class TodoService
                 iterator.remove();
             }
         }
+    }
+
+    public Todo getTodo(String user, int id)
+    {
+        Todo retriviedTodo =  todos.stream()
+                                    .filter(x -> x.getId() == id)
+                                    .findFirst()
+                                    .get();
+
+        if(retriviedTodo == null)
+            throw new TodoNotFoundException(String.format("Todo [%s] not found", id));
+
+        return retriviedTodo;
+    }
+
+    public void updateTodo(Todo todo){
+        todos.remove(todo);
+        todos.add(todo);
     }
 }
