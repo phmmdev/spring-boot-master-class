@@ -2,6 +2,7 @@ package com.knowledge.springboot.web.controller;
 
 import com.knowledge.springboot.web.exceptions.TodoNotFoundException;
 import com.knowledge.springboot.web.model.Todo;
+import com.knowledge.springboot.web.service.LoggedInUserService;
 import com.knowledge.springboot.web.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,13 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Controller
-@SessionAttributes("name")
 public class TodoController
 {
-
-    @Autowired
-    private TodoService todoService;
-
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -32,10 +28,20 @@ public class TodoController
                 dateFormat, false));
     }
 
+    private TodoService todoService;
+    private LoggedInUserService loggedInUserService;
+
+    @Autowired
+    public TodoController(TodoService todoService, LoggedInUserService loggedInUserService)
+    {
+        this.todoService = todoService;
+        this.loggedInUserService = loggedInUserService;
+    }
+
     @RequestMapping(value = "/list-todos", method = RequestMethod.GET)
     public String showTodos(ModelMap model)
     {
-        String name  =  getLoggedInUserName(model);
+        String name  =  this.loggedInUserService.getLoggedInUserName();
         ArrayList<Todo> todos = (ArrayList<Todo>) todoService.retrieveTodos(name);
         model.put("todos", todos);
         return "list-todos";
@@ -53,8 +59,7 @@ public class TodoController
     {
         try
         {
-            String name = getLoggedInUserName(model);
-            Todo todo = todoService.getTodo(name, id);
+            Todo todo = todoService.getTodo(this.loggedInUserService.getLoggedInUserName(), id);
             model.addAttribute("todo", todo);
             return "todo";
         }catch (TodoNotFoundException tex)
@@ -62,11 +67,6 @@ public class TodoController
             // TODO shows message saying that id provided doesn't match with any TODO
         }
         return "todo";
-    }
-
-    private String getLoggedInUserName(ModelMap model)
-    {
-        return (String) model.get("name");
     }
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
@@ -86,7 +86,7 @@ public class TodoController
             return "todo";
         }
 
-        todo.setUser((String) getLoggedInUserName(model));
+        todo.setUser(this.loggedInUserService.getLoggedInUserName());
 
         todoService.updateTodo(todo);
 
