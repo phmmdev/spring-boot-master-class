@@ -2,10 +2,11 @@ package com.knowledge.apitutorial.service;
 
 import com.knowledge.apitutorial.model.Question;
 import com.knowledge.apitutorial.model.Survey;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-public interface SuveyService
+public interface SurveyService
 {
     List<Survey> retrieveAllSurveys();
     Survey retrieveSurvey(String surveyId);

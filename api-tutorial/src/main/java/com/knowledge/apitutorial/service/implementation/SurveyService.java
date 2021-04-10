@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
-public class SurveyService {
+@Component("SurveyService")
+public class SurveyService implements com.knowledge.apitutorial.service.SurveyService {
 	private static List<Survey> surveys = new ArrayList<>();
 	static {
 		Question question1 = new Question("Question1",
