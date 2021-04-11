@@ -1,0 +1,11 @@
+placeholders:
+  exclamation: "!!!"
+  env: "localhost"
+messages:
+  welcome: "Welcome from ${placeholders.env} yaml file ${placeholders.exclamation}"
+  goodbye: "Good bye message from ${placeholders.env} yaml file ${placeholders.exclamation}"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: env, metrics

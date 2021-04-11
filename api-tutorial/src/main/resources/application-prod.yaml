@@ -1,0 +1,7 @@
+placeholders:
+  exclamation: "!!!"
+  env: "production"
+messages:
+  welcome: "Welcome from ${placeholders.env} yaml file ${placeholders.exclamation}"
+  goodbye: "Good bye message from ${placeholders.env} yaml file ${placeholders.exclamation}"
+

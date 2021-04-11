@@ -1,5 +1,0 @@
-placeholders:
-  exclamation: "!!!"
-messages:
-  welcome: "Welcome from yaml file ${placeholders.exclamation}"
-  goodbye: "Good bye message from yaml file ${placeholders.exclamation}"
