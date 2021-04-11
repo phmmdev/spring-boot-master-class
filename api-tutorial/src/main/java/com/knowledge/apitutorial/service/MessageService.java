@@ -1,6 +1,7 @@
 package com.knowledge.apitutorial.service;
 
-public interface WelcomeService
+public interface MessageService
 {
     String retrieveWelcomeMessage();
+    String retrieveGoodbyeMessage();
 }

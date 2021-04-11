@@ -1,0 +1,3 @@
+messages:
+  welcome: "Welcome from yaml file"
+  goodbye: "Good bye message from yaml file"
